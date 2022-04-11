@@ -4,6 +4,7 @@ import com.cision.cision.controller.Json;
 import com.cision.cision.repository.JsonJpaEntity;
 import com.cision.cision.repository.JsonJpaRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
+@Log4j2
 public class JsonStore {
 
     @Autowired
@@ -31,6 +33,8 @@ public class JsonStore {
                         .timestamp(request.getTimestamp())
                         .size(size)
                         .build();
+                log.info("content " + request.getContent());
+                log.info("timestamp " + request.getTimestamp());
                 jsonJpaRepository.save(jsonJpaEntity);
                 return new ResponseEntity<>(jsonJpaEntity, HttpStatus.OK);
 
@@ -52,6 +56,8 @@ public class JsonStore {
                     .timestamp(jsonJpaEntity.getTimestamp())
                     .size(jsonJpaEntity.getSize())
                     .build()).collect(Collectors.toList());
+            log.info("content " + jsons.get(0).getContent());
+            log.info("timestamp " + jsons.get(0).getTimestamp());
             if(jsons.size() == 0) {
                 return new ResponseEntity<>(jsons, HttpStatus.NO_CONTENT);
             } else {

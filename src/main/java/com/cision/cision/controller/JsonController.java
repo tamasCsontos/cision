@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
-@RequestMapping("/api")
+@RequestMapping("api")
 @AllArgsConstructor
 public class JsonController {
 
 
     private JsonStore jsonStore;
 
-    @GetMapping("/jsons")
+    @GetMapping("jsons")
     public ResponseEntity<List<Json>> getJsons() {
         return jsonStore.findAll();
     }
 
-    @PostMapping("/jsons")
+    @PostMapping("jsons")
     public ResponseEntity<JsonJpaEntity> createJson(@RequestBody Json json) {
             return jsonStore.save(json);
     }
