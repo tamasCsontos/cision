@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class JsonController {
 
-
+    @Autowired
     private JsonStore jsonStore;
 
     @GetMapping("jsons")
