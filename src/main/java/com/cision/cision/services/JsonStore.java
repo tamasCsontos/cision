@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,15 +39,27 @@ public class JsonStore {
             }
         }
 
-        return return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);;
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    public List<Json> findAll(){
-        return jsonJpaRepository.findAll().stream().map(jsonJpaEntity -> Json.builder()
-                .id(jsonJpaEntity.getId())
-                .content(jsonJpaEntity.getContent())
-                .timestamp(jsonJpaEntity.getTimestamp())
-                .size(jsonJpaEntity.getSize())
-                .build()).collect(Collectors.toList());
+    public ResponseEntity findAll() {
+
+        List<Json> jsons;
+        try {
+            jsons = jsonJpaRepository.findAll().stream().map(jsonJpaEntity -> Json.builder()
+                    .id(jsonJpaEntity.getId())
+                    .content(jsonJpaEntity.getContent())
+                    .timestamp(jsonJpaEntity.getTimestamp())
+                    .size(jsonJpaEntity.getSize())
+                    .build()).collect(Collectors.toList());
+            if(jsons.size() == 0) {
+                return new ResponseEntity<>(jsons, HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(jsons, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }

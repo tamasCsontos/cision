@@ -20,10 +20,7 @@ public class JsonController {
 
     @GetMapping("/jsons")
     public ResponseEntity<List<Json>> getJsons() {
-        List<Json> jsons = null;
-        //jsonStore.findAll();}
-        return new ResponseEntity<>(jsons, HttpStatus.OK);
-
+        return jsonStore.findAll();
     }
 
     @PostMapping("/jsons")
