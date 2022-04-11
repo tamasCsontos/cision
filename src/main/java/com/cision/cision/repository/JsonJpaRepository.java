@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface JsonJpaRepository extends CrudRepository<JsonJpaEntity, Long> {
 
-    List<JsonJpaEntity> findByContent(String content);
+    List<JsonJpaEntity> findAll();
 }
