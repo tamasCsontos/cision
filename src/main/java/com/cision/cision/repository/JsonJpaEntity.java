@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "images")
+@Table(name = "jsons")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor

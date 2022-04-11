@@ -1,5 +1,6 @@
 package com.cision.cision.controller;
 
+import com.cision.cision.repository.JsonJpaEntity;
 import com.cision.cision.services.JsonStore;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,7 @@ public class JsonController {
     }
 
     @PostMapping("/jsons")
-    public ResponseEntity<Json> createJson(@RequestBody Json json) {
-        return new ResponseEntity<>(null,HttpStatus.OK);
-    
-
+    public ResponseEntity<JsonJpaEntity> createJson(@RequestBody Json json) {
+            return jsonStore.save(json);
     }
 }
